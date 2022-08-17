@@ -1,0 +1,7 @@
+﻿  main.cpp
+D:\Dev\Raylib\Raylib_Pong\Raylib_Pong\Source\main.cpp(38,32): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Dev\Raylib\Raylib_Pong\Raylib_Pong\Source\main.cpp(45,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Dev\Raylib\Raylib_Pong\Raylib_Pong\Source\main.cpp(45,22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Dev\Raylib\Raylib_Pong\Raylib_Pong\Source\main.cpp(179,105): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Dev\Raylib\Raylib_Pong\Raylib_Pong\Source\main.cpp(179,49): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Raylib_Pong.vcxproj -> D:\Dev\Raylib\Raylib_Pong\x64\Debug\Raylib_Pong.exe
