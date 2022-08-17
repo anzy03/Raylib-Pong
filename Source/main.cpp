@@ -1,4 +1,6 @@
 #include "raylib.h"
+#include <string>
+#include <iostream>
 
 struct object
 {
@@ -101,11 +103,17 @@ int main()
 	InitWindow(800, 600, "Pong");
 	SetWindowState(FLAG_VSYNC_HINT);
 
+	int leftPoints = 0, rightPoints = 0;
+
 	Ball ball = Ball(GetScreenWidth() * 0.5f, GetScreenHeight() * 0.5f);
 	Paddle paddleLeft = Paddle(50, GetScreenHeight() * 0.5f);
 	Paddle paddleRight = Paddle(GetScreenWidth() - 50.0f, GetScreenHeight() * 0.5f);
 
-	const char* winnerText = nullptr;
+	std::string winnerText;
+	std::string leftPointText = std::to_string(leftPoints);
+	std::string rightPointText = std::to_string(rightPoints);
+	bool hasRoundPaused = false;
+
 
 	while (WindowShouldClose() == false)
 	{
@@ -143,27 +151,56 @@ int main()
 		{
 			if (ball.speed.x > 0)
 			{
-
 				ball.speed.x *= -1.1f;
 				ball.speed.y = (ball.position.y - paddleRight.position.y) / (paddleRight.height * 0.5f) * -ball.speed.x;
 			}
 		}
 
-		if (ball.position.x < 0)
+
+		if (hasRoundPaused == false)
 		{
-			winnerText = "Right Player Wins!";
+			if (ball.position.x < 0)
+			{
+				if (rightPoints <= 5)
+				{
+					winnerText = "Right Player Scores!\nSpace To Continue";
+					++rightPoints;
+					rightPointText = std::to_string(rightPoints);
+				}
+				else
+				{
+					winnerText = "Right Player Wins!\nSpace To Restart";
+				}
+				hasRoundPaused = true;
+			}
+			if (ball.position.x > GetScreenWidth())
+			{
+				if (leftPoints <= 5)
+				{
+					winnerText = "Left Player Scores!\nSpace To Continue";
+					leftPoints++;
+					leftPointText = std::to_string(leftPoints);
+				}
+				else
+				{
+					winnerText = "Left Player Wins!\nSpace To Restart";
+				}
+				hasRoundPaused = true;
+			}
 		}
-		if (ball.position.x > GetScreenWidth())
+		else
 		{
-			winnerText = "Left Player Wins!";
-		}
-		if (winnerText != nullptr && IsKeyPressed(KEY_SPACE))
-		{
-			ball.position.x = GetScreenWidth() * 0.5f;
-			ball.position.y = GetScreenHeight() * 0.5f;
-			ball.speed.x = 200.0f;
-			ball.speed.y = 300.0f;
-			winnerText = nullptr;
+				
+			if (winnerText != "" && IsKeyPressed(KEY_SPACE))
+			{
+				winnerText.clear();
+				hasRoundPaused = false;
+
+				ball.position.x = GetScreenWidth() * 0.5f;
+				ball.position.y = GetScreenHeight() * 0.5f;
+				ball.speed.x = 200.0f;
+				ball.speed.y = 300.0f;
+			}
 		}
 
 		/********** Rendering *************/
@@ -174,10 +211,15 @@ int main()
 		paddleLeft.Draw();
 		paddleRight.Draw();
 
-		if (winnerText != nullptr)
+		if (winnerText != "")
 		{
-			DrawText(winnerText, GetScreenWidth() * 0.5f - MeasureText(winnerText, 60) * 0.5f, GetScreenHeight() * 0.5f, 60, YELLOW);
+			DrawText(winnerText.c_str(),
+				GetScreenWidth() * 0.5f - MeasureText(winnerText.c_str(), 60) * 0.5f,
+				GetScreenHeight() * 0.5f - 50,
+				60, YELLOW);
 		}
+		DrawText(leftPointText.c_str(), (GetScreenWidth() * 0.5f) - 200, 50, 45, WHITE);
+		DrawText(rightPointText.c_str(), (GetScreenWidth() * 0.5f) + 200, 50, 45, WHITE);
 
 		DrawFPS(10, 10);
 		EndDrawing();
