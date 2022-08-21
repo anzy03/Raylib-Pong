@@ -8,4 +8,5 @@ This project was created as a means to learn Raylib using C++. <br> This is a si
  - [Visual Studio](https://visualstudio.microsoft.com/)
 
 ## Demo
-![](Video/Pong%202022-08-20%2021-18-28.mp4)
+https://user-images.githubusercontent.com/34473415/185775603-38e8afcc-a3ab-4f52-bd90-12d4f88f37ed.mp4
+
