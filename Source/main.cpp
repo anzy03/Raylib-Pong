@@ -165,12 +165,13 @@ int main()
 				{
 					winnerText = "Right Player Scores!\nSpace To Continue";
 					++rightPoints;
-					rightPointText = std::to_string(rightPoints);
 				}
 				else
 				{
 					winnerText = "Right Player Wins!\nSpace To Restart";
+					rightPoints = 0;
 				}
+				rightPointText = std::to_string(rightPoints);
 				hasRoundPaused = true;
 			}
 			if (ball.position.x > GetScreenWidth())
@@ -179,18 +180,19 @@ int main()
 				{
 					winnerText = "Left Player Scores!\nSpace To Continue";
 					leftPoints++;
-					leftPointText = std::to_string(leftPoints);
 				}
 				else
 				{
 					winnerText = "Left Player Wins!\nSpace To Restart";
+					leftPoints = 0;
 				}
+				leftPointText = std::to_string(leftPoints);
 				hasRoundPaused = true;
 			}
 		}
 		else
 		{
-				
+
 			if (winnerText != "" && IsKeyPressed(KEY_SPACE))
 			{
 				winnerText.clear();
