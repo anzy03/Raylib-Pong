@@ -1,1 +1,0 @@
-D:\Dev\Raylib\Raylib_Pong\Raylib_Pong\x64\Debug\Raylib_Pong.vcxproj.CopyComplete
